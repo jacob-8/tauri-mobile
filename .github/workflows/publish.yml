@@ -213,14 +213,12 @@ jobs:
 
       - name: Build Tauri App
         id: tauri-app
-        uses: tauri-apps/tauri-action@v0
+        run: |
+          pnpm build
+          pnpm tauri build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CI: "false"
-        with:
-          args: --verbose
-          releaseId: ${{ needs.create-release.outputs.release_id }}
-          includeRelease: true
 
   undraft-release:
     needs: [create-release, publish-tauri, publish-android]
