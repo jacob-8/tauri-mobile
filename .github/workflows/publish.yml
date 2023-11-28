@@ -2,6 +2,8 @@ name: "Build & Publish App, Service, Scripts"
 on:
   push:
 
+permissions: write-all
+
 jobs:
   create-release:
     name: Create a new github release
@@ -164,6 +166,14 @@ jobs:
           cargo install tauri-cli@2.0.0-alpha.18
           cargo tauri android build
 
+      - name: Upload to Release
+        uses: ahqsoftwares/upload-release-asset@v22
+        with:
+          id: ${{ needs.create-release.outputs.release_id }}
+          asset_path: /home/runner/work/tauri-mobile/tauri-mobile/src-tauri/gen/android/app/build/outputs/apk/universal/release/app-universal-release-unsigned.apk
+          asset_name: app.apk.
+          asset_content_type: application/vnd.android.package-archive
+
   publish-tauri:
     needs: create-release
     name: Build & Publish Tauri App
@@ -213,12 +223,14 @@ jobs:
 
       - name: Build Tauri App
         id: tauri-app
-        run: |
-          pnpm build
-          pnpm tauri build
+        uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CI: "false"
+        with:
+          args: --verbose --target x86_64-pc-windows-msvc
+          releaseId: ${{ needs.create-release.outputs.release_id }}
+          includeRelease: true
 
   undraft-release:
     needs: [create-release, publish-tauri, publish-android]
