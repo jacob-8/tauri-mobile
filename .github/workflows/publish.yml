@@ -182,7 +182,7 @@ jobs:
         uses: ahqsoftwares/upload-release-asset@v22
         with:
           id: ${{ needs.create-release.outputs.release_id }}
-          asset_path: /home/runner/work/tauri-mobile/tauri-mobile/src-tauri/gen/android/app/build/outputs/apk/universal/release/app-universal-release-unsigned.apk
+          asset_path: ${{ steps.sign_app.outputs.signedReleaseFile }}
           asset_name: app.apk
           asset_content_type: application/zip
         env:
