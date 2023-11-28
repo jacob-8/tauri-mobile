@@ -171,7 +171,7 @@ jobs:
         with:
           id: ${{ needs.create-release.outputs.release_id }}
           asset_path: /home/runner/work/tauri-mobile/tauri-mobile/src-tauri/gen/android/app/build/outputs/apk/universal/release/app-universal-release-unsigned.apk
-          asset_name: app.apk.
+          asset_name: app.apk
           asset_content_type: application/vnd.android.package-archive
 
   publish-tauri:
