@@ -172,7 +172,7 @@ jobs:
         with:
           releaseDirectory: /home/runner/work/tauri-mobile/tauri-mobile/src-tauri/gen/android/app/build/outputs/apk/universal/release
           signingKeyBase64: ${{ secrets.KEY_FILE }}
-          alias: android
+          alias: upload
           keyStorePassword: android
           keyPassword: android
         env:
