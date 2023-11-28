@@ -166,6 +166,18 @@ jobs:
           cargo install tauri-cli@2.0.0-alpha.18
           cargo tauri android build
 
+      - uses: r0adkll/sign-android-release@v1
+        name: Sign app APK
+        id: sign_app
+        with:
+          releaseDirectory: app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.KEY_FILE }}
+          alias: ${{ secrets.PASS }}
+          keyStorePassword: ${{ secrets.PASS }}
+          keyPassword: ${{ secrets.PASS }}
+        env:
+          BUILD_TOOLS_VERSION: "33.0.1"
+
       - name: Upload to Release
         uses: ahqsoftwares/upload-release-asset@v22
         with:
