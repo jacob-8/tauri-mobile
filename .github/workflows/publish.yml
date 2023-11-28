@@ -151,6 +151,15 @@ jobs:
       - name: Install Rust Targets
         run: rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
 
+      - name: Cache Rust
+        if: ${{ github.event_name }} == "push" && ${{ github.ref_name }} == "master"
+        uses: Swatinem/rust-cache@v2
+        with:
+          prefix-key: src-tauriapp-andy
+          cache-all-crates: true
+          workspaces: |
+            src-tauri -> target
+
       - name: Build Tauri App (Android)
         run: |
           export CURRENT_DIR=$(pwd)
@@ -163,8 +172,7 @@ jobs:
 
           pnpm install
           pnpm build
-          cargo install tauri-cli@2.0.0-alpha.18
-          cargo tauri android build
+          pnpm tauri android build
 
       - uses: r0adkll/sign-android-release@v1
         name: Sign app APK
