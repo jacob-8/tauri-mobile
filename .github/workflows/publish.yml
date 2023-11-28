@@ -172,9 +172,9 @@ jobs:
         with:
           releaseDirectory: /home/runner/work/tauri-mobile/tauri-mobile/src-tauri/gen/android/app/build/outputs/apk/universal/release/app-universal-release-unsigned.apk
           signingKeyBase64: ${{ secrets.KEY_FILE }}
-          alias: ${{ secrets.PASS }}
-          keyStorePassword: ${{ secrets.PASS }}
-          keyPassword: ${{ secrets.PASS }}
+          alias: android
+          keyStorePassword: android
+          keyPassword: android
         env:
           BUILD_TOOLS_VERSION: "33.0.1"
 
