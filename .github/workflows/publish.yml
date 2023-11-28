@@ -170,7 +170,7 @@ jobs:
         name: Sign app APK
         id: sign_app
         with:
-          releaseDirectory: app/build/outputs/apk/release
+          releaseDirectory: /home/runner/work/tauri-mobile/tauri-mobile/src-tauri/gen/android/app/build/outputs/apk/universal/release/app-universal-release-unsigned.apk
           signingKeyBase64: ${{ secrets.KEY_FILE }}
           alias: ${{ secrets.PASS }}
           keyStorePassword: ${{ secrets.PASS }}
