@@ -1,6 +1,7 @@
 name: "Build & Publish App, Service, Scripts"
 on:
   push:
+  workworkflow_dispatch:
 
 permissions: write-all
 
